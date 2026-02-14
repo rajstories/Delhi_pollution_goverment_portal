@@ -81,28 +81,27 @@ function googleAirQualityProxy(apiKey: string): Plugin {
 }
 
 export default defineConfig(({ mode }) => {
-    const env = loadEnv(mode, '.', '');
-    const googleProxyEnabled = Boolean(env.GOOGLE_AIR_QUALITY_API_KEY);
+  const env = loadEnv(mode, '.', '');
+  const googleProxyEnabled = Boolean(env.GOOGLE_AIR_QUALITY_API_KEY);
 
-    return {
-      server: {
-        port: 3000,
-        host: '0.0.0.0',
+  return {
+    // Allow Clerk keys using either Vite-style or Next.js-style prefixes
+    envPrefix: ['VITE_', 'NEXT_PUBLIC_'],
+    server: {
+      port: 3000,
+      host: '0.0.0.0',
+    },
+    plugins: [react(), googleAirQualityProxy(env.GOOGLE_AIR_QUALITY_API_KEY || '')],
+    define: {
+      // Expose *only* whether the proxy is enabled (NOT the key itself)
+      'import.meta.env.VITE_GOOGLE_AIR_QUALITY_PROXY_ENABLED': JSON.stringify(googleProxyEnabled),
+      'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
+      'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
+    },
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, '.'),
       },
-      plugins: [
-        react(),
-        googleAirQualityProxy(env.GOOGLE_AIR_QUALITY_API_KEY || ''),
-      ],
-      define: {
-        // Expose *only* whether the proxy is enabled (NOT the key itself)
-        'import.meta.env.VITE_GOOGLE_AIR_QUALITY_PROXY_ENABLED': JSON.stringify(googleProxyEnabled),
-        'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
-        'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
-      },
-      resolve: {
-        alias: {
-          '@': path.resolve(__dirname, '.'),
-        }
-      }
-    };
+    },
+  };
 });

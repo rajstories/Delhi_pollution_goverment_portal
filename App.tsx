@@ -24,7 +24,12 @@ const LoadingFallback = () => (
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<ViewState>(ViewState.DASHBOARD);
-  const [showLanding, setShowLanding] = useState(true);
+
+  // If Clerk redirects back with a query param, enter the dashboard automatically.
+  const [showLanding, setShowLanding] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('enterDashboard') !== '1';
+  });
 
   if (showLanding) {
     return (
@@ -32,6 +37,11 @@ const App: React.FC = () => {
         <LandingPage onEnterDashboard={() => setShowLanding(false)} />
       </React.Suspense>
     );
+  }
+
+  // Clean up the URL if we entered via Clerk redirect.
+  if (window.location.search.includes('enterDashboard=1')) {
+    window.history.replaceState({}, '', window.location.pathname);
   }
 
   const renderContent = () => {
