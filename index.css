@@ -3,3 +3,24 @@
 :root {
   color-scheme: light;
 }
+
+/* Simple marquee (Govt-style notice strip) */
+@keyframes ww-marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.ww-marquee {
+  overflow: hidden;
+}
+
+.ww-marquee__content {
+  display: inline-block;
+  white-space: nowrap;
+  will-change: transform;
+  animation: ww-marquee 24s linear infinite;
+}
