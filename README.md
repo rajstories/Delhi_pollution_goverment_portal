@@ -1,7 +1,16 @@
 <div align="center">
-
 <!-- ANIMATED HEADER BANNER -->
 <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=200&section=header&text=WardWatch%20AI&fontSize=70&fontColor=fff&animation=twinkling&fontAlignY=38&desc=From%20Data%20Blind%20to%20Action%20Ready&descAlignY=60&descSize=20" width="100%" />
+
+<br/>
+
+<a href="https://delhi-pollution-goverment-portal.vercel.app/">
+  <img src="https://img.shields.io/badge/🌐%20View%20Live%20Website-delhi--pollution--goverment--portal.vercel.app-4CAF50?style=for-the-badge&logo=vercel&logoColor=white" />
+</a>
+&nbsp;&nbsp;
+<a href="https://www.youtube.com/watch?v=Z-mdqGnRBQA">
+  <img src="https://img.shields.io/badge/▶%20Watch%20Demo%20Video-YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" />
+</a>
 
 <!-- LOGO -->
 
@@ -165,7 +174,7 @@ We bridge the gap between **30 Million Citizens** and the **MCD Command Center**
 
 | 🛣️ **Safe Commute Widget** | 🏃 **Dynamic Health Guide** | 🏆 **Gamified Reporting** |
 |:---:|:---:|:---:|
-| <img src="assets/image_b17d7d.png" width="220" style="border-radius:12px" /> | <img src="assets/image_b17d58.png" width="220" style="border-radius:12px" /> | <img src="assets/image_b18121.jpg" width="220" style="border-radius:12px" /> |
+| <img width="644" height="638" alt="image" src="https://github.com/user-attachments/assets/d5f72d2f-4482-4501-8d61-670bb9d5d2dd" />| <img width="280" src="https://github.com/user-attachments/assets/758e85cb-97f9-4cf6-80ad-4c2aed42aed7" /> | <img width="280" src="https://github.com/user-attachments/assets/512380a2-5179-4fc7-bbe7-542062cf0078" /> |
 | Don't just find the **Fastest** Route. Find the **Cleanest Route** through verified Green Zones. | *"Can I jog today?"* — Personalized health advice based on **your Ward's real-time AQI.** | Report violations, earn **🟢 Green Credits**, and top your Ward's Eco-Leaderboard. |
 
 </div>
@@ -203,7 +212,7 @@ We bridge the gap between **30 Million Citizens** and the **MCD Command Center**
 
 | 🗺️ **272-Ward GIS Heatmap** | 🤖 **Niti-AI Policy Simulator** |
 |:---:|:---:|
-| <img src="assets/image_1e8381.jpg" width="380" style="border-radius:12px" /> | <img src="assets/image_b2009d.jpg" width="380" style="border-radius:12px" /> |
+| <img width="480" src="https://github.com/user-attachments/assets/3a4ff6e0-c804-4cc0-8048-739733a9919e" /> | <img width="480" src="https://github.com/user-attachments/assets/8287701c-315f-44b6-aba8-aa51b8d83251" /> |
 | Live visualization differentiating **Vehicular vs Industrial vs Construction** pollution sources in real-time across every ward. | *"Deploy 50 Anti-Smog Guns in Rohini → AQI drops 42 pts, Cost: ₹1.5L"* — Simulate policy impact **before** issuing any order. |
 
 </div>
@@ -517,7 +526,7 @@ wardwatch-ai/
 
 <div align="center">
 
-[![WardWatch AI Demo](https://img.shields.io/badge/▶%20Watch%20Full%20Demo-YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://your-demo-link.com)
+[![WardWatch AI Demo](https://img.shields.io/badge/▶%20Watch%20Full%20Demo-YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=Z-mdqGnRBQA)
 
 > *A 3-minute walkthrough of the complete citizen-to-government feedback loop.*
 
@@ -527,16 +536,16 @@ wardwatch-ai/
 
 ---
 
-## 👥 Team
+## 👥 Team GeoVision
 
 <div align="center">
 
 | Member | Role | 
 |:---:|:---|
-| 👨‍💻 **[Name]** | Full Stack Lead — Citizen App & Dashboard |
-| 🤖 **[Name]** | AI/ML Engineer — MLP Model & Forecasting |
-| 🗺️ **[Name]** | GIS & Backend — Mapping & Data Pipeline |
-| 🎨 **[Name]** | UI/UX & Product — Design & Strategy |
+| 👨‍💻 **Raj** | Full Stack Lead — Citizen App & Dashboard |
+| 🤖 **Sanchita Thakur** | AI/ML Engineer — MLP Model & Forecasting |
+| 🗺️ **Rajat aggarwal** | GIS & Backend — Mapping & Data Pipeline |
+| 🎨 **Prince Kumar** | UI/UX & Product — Design & Strategy |
 
 </div>
 
