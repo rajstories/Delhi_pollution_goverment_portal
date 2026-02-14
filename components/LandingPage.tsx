@@ -26,6 +26,9 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterDashboard }) => {
   const citizenPortalUrl = 'https://delhi-air-citizen-portal.vercel.app/';
   const demoVideoUrl = 'https://youtu.be/Z-mdqGnRBQA?si=lKAWTxRjA9SN8u7O';
 
+  // Critical visual fix: ensure hero imagery is Delhi (not Mumbai)
+  const heroImageUrl = 'https://images.unsplash.com/photo-1587474260584-136574528615?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80';
+
   const publishableKey = String(
     import.meta.env.VITE_CLERK_PUBLISHABLE_KEY || import.meta.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || ''
   );
@@ -36,6 +39,14 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterDashboard }) => {
     const base = window.location.origin + window.location.pathname;
     return `${base}?enterDashboard=1`;
   }, []);
+
+  // "Live" strip values (can be wired to real data later)
+  const avgCityAqi = 312;
+  const wardsMonitored = '272/272';
+  const activeAlerts = 42;
+
+  const aqiCategory = avgCityAqi >= 301 ? 'Very Poor' : avgCityAqi >= 201 ? 'Poor' : 'Moderate';
+  const aqiColorClass = avgCityAqi >= 301 ? 'text-red-600' : avgCityAqi >= 201 ? 'text-orange-600' : 'text-green-600';
 
   const openOfficialAuth = () => {
     setShowRoleModal(false);
@@ -102,14 +113,23 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterDashboard }) => {
       <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-3 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            {/* Emblem Placeholder */}
+            {/* State Emblem of India (Lion Capital) */}
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Emblem_of_India.svg/800px-Emblem_of_India.svg.png"
-              alt="Satyamev Jayate"
+              src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
+              alt="State Emblem of India"
               className="h-12 w-auto object-contain"
             />
             <div className="hidden md:block border-l-2 border-gray-300 pl-4">
-              <h1 className="text-lg font-bold text-[#1e3a8a] leading-tight">WardWatch AI</h1>
+              <h1 className="text-lg font-bold text-[#1e3a8a] leading-tight">
+                <span className="inline-flex items-center gap-2">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
+                    alt="State Emblem"
+                    className="h-6 w-6 object-contain"
+                  />
+                  WardWatch AI
+                </span>
+              </h1>
               <p className="text-xs text-gray-500 font-medium uppercase tracking-wide">
                 Municipal Corporation of Delhi
               </p>
@@ -129,6 +149,15 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterDashboard }) => {
           </div>
         </div>
       </nav>
+
+      {/* Government-style scrolling notice strip */}
+      <div className="border-b border-red-100 bg-[#fef2f2]">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 py-2 ww-marquee">
+          <div className="ww-marquee__content text-[12px] text-red-900 font-semibold">
+            ⚠ GRAP-3 Measures in Effect: Construction activities halted in 14 wards. | 🔔 New Advisory: AQI likely to cross 400 this evening. Citizens advised to wear masks.
+          </div>
+        </div>
+      </div>
 
       {/* HERO SECTION */}
       <section className="relative bg-white overflow-hidden">
@@ -175,15 +204,45 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterDashboard }) => {
           <div className="flex-1 w-full max-w-lg md:max-w-none">
             <div className="relative rounded-2xl overflow-hidden shadow-xl border border-gray-200 bg-white">
               <img
-                src="https://images.unsplash.com/photo-1595658658481-d53d3f999875?auto=format&fit=crop&w=1600&q=80"
-                alt="Delhi city and infrastructure"
+                src={heroImageUrl}
+                alt="Delhi (India Gate)"
                 className="w-full h-auto object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#1e3a8a]/80 to-transparent flex items-end p-6">
                 <div className="text-white">
-                  <p className="font-bold text-lg">Real-time Data Integration</p>
-                  <p className="text-sm opacity-90">Integrating satellite, IoT, and ground sensor data.</p>
+                  <p className="font-bold text-lg">MCD Command Center Connected</p>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* LIVE DATA STRIP */}
+      <section className="bg-white">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 -mt-6 md:-mt-8 pb-6">
+          <div className="bg-white border border-gray-200 shadow-sm rounded-xl px-4 md:px-6 py-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="flex flex-col">
+                <span className="text-[11px] uppercase tracking-wider text-gray-500 font-semibold">Avg City AQI</span>
+                <span className={`text-lg font-bold ${aqiColorClass}`}>
+                  {avgCityAqi} <span className="text-sm font-semibold text-gray-600">({aqiCategory})</span>
+                </span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[11px] uppercase tracking-wider text-gray-500 font-semibold">Wards Monitored</span>
+                <span className="text-lg font-bold text-gray-900">{wardsMonitored}</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[11px] uppercase tracking-wider text-gray-500 font-semibold">Active Alerts</span>
+                <span className="text-lg font-bold text-gray-900">{activeAlerts}</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[11px] uppercase tracking-wider text-gray-500 font-semibold">Last Updated</span>
+                <span className="text-lg font-bold text-gray-900 inline-flex items-center gap-2">
+                  <span className="inline-flex h-2.5 w-2.5 rounded-full bg-green-500 animate-pulse" aria-hidden="true" />
+                  Just Now
+                </span>
               </div>
             </div>
           </div>
