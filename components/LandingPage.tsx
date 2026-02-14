@@ -27,7 +27,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterDashboard }) => {
   const demoVideoUrl = 'https://youtu.be/Z-mdqGnRBQA?si=lKAWTxRjA9SN8u7O';
 
   // Critical visual fix: ensure hero imagery is Delhi (not Mumbai)
-  const heroImageUrl = 'https://images.unsplash.com/photo-1587474260584-136574528615?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80';
+  // Using local public image for reliability
+  const heroImageUrl = '/delhi-hero.jpg';
 
   const publishableKey = String(
     import.meta.env.VITE_CLERK_PUBLISHABLE_KEY || import.meta.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || ''
