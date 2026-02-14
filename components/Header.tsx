@@ -1,25 +1,32 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Search, Bell, ChevronDown, Flame, AlertTriangle, CloudFog } from 'lucide-react';
+import { Search, Bell, ChevronDown, Flame, AlertTriangle, CloudFog, LogOut } from 'lucide-react';
 import { ViewState } from '../types';
 
 interface HeaderProps {
   onViewChange?: (view: ViewState) => void;
+  onLogout?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ onViewChange }) => {
+const Header: React.FC<HeaderProps> = ({ onViewChange, onLogout }) => {
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
   const notificationRef = useRef<HTMLDivElement>(null);
+  const userMenuRef = useRef<HTMLDivElement>(null);
 
-  // Close dropdown when clicking outside
+  // Close dropdowns when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (notificationRef.current && !notificationRef.current.contains(event.target as Node)) {
         setShowNotifications(false);
       }
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+        setShowUserMenu(false);
+      }
     }
-    document.addEventListener("mousedown", handleClickOutside);
+
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
@@ -28,6 +35,22 @@ const Header: React.FC<HeaderProps> = ({ onViewChange }) => {
     if (onViewChange) {
       onViewChange(ViewState.ALERTS);
     }
+  };
+
+  const handleLogout = async () => {
+    setShowUserMenu(false);
+
+    // If Clerk is loaded (LandingPage auth), sign out from Clerk too.
+    const clerk = (window as any).Clerk;
+    if (clerk?.signOut) {
+      try {
+        await clerk.signOut();
+      } catch {
+        // ignore
+      }
+    }
+
+    onLogout?.();
   };
 
   return (
@@ -154,16 +177,42 @@ const Header: React.FC<HeaderProps> = ({ onViewChange }) => {
           </div>
           
           {/* User Profile */}
-          <div className="flex items-center gap-3 cursor-pointer">
-            <div className="h-9 w-9 bg-navy-800 rounded-full flex 
-                            items-center justify-center text-white font-bold shadow-sm bg-[#0f2942]">
-              DA
-            </div>
-            <div className="hidden sm:block text-left">
-              <p className="font-bold text-sm text-gray-900 leading-none">DPCC Admin</p>
-              <p className="text-xs text-gray-500 leading-none mt-1">Super Admin</p>
-            </div>
-            <ChevronDown className="h-4 w-4 text-gray-400 hidden sm:block" />
+          <div className="relative" ref={userMenuRef}>
+            <button
+              type="button"
+              onClick={() => setShowUserMenu((v) => !v)}
+              className="flex items-center gap-3 cursor-pointer rounded-full pr-2 hover:bg-gray-100 transition-colors focus:outline-none"
+              aria-haspopup="menu"
+              aria-expanded={showUserMenu}
+            >
+              <div
+                className="h-9 w-9 bg-navy-800 rounded-full flex items-center justify-center text-white font-bold shadow-sm bg-[#0f2942]"
+                aria-hidden="true"
+              >
+                DA
+              </div>
+              <div className="hidden sm:block text-left">
+                <p className="font-bold text-sm text-gray-900 leading-none">DPCC Admin</p>
+                <p className="text-xs text-gray-500 leading-none mt-1">Super Admin</p>
+              </div>
+              <ChevronDown className="h-4 w-4 text-gray-400 hidden sm:block" />
+            </button>
+
+            {showUserMenu && (
+              <div
+                className="absolute right-0 top-12 w-48 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden z-[100] animate-in fade-in zoom-in-95 duration-200 origin-top-right"
+                role="menu"
+              >
+                <button
+                  onClick={handleLogout}
+                  className="w-full px-4 py-3 text-sm font-semibold text-gray-800 hover:bg-gray-50 flex items-center gap-2"
+                  role="menuitem"
+                >
+                  <LogOut className="h-4 w-4 text-gray-500" />
+                  Log out
+                </button>
+              </div>
+            )}
           </div>
         </div>
         

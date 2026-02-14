@@ -72,7 +72,7 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: COLORS.background }}>
-      <Header onViewChange={setCurrentView} />
+      <Header onViewChange={setCurrentView} onLogout={() => setShowLanding(true)} />
       <Sidebar currentView={currentView} onChangeView={setCurrentView} />
       
       <main className="ml-60 pt-16 min-h-screen transition-all duration-300">
