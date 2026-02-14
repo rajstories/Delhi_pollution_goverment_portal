@@ -88,11 +88,12 @@ const adjustDataForTimeFilter = (baseValue: number, filter: TimeFilter): number 
 
 // Helper: Format currency in Indian locale
 const formatCurrency = (amount: number): string => {
+  // Intl.NumberFormat returns a formatter object; call .format() to get a string.
   return new Intl.NumberFormat('en-IN', {
     style: 'currency',
     currency: 'INR',
-    maximumFractionDigits: 0
-  }).replace('₹', '₹');
+    maximumFractionDigits: 0,
+  }).format(amount);
 };
 
 // Helper: Export to CSV

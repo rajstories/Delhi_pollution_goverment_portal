@@ -79,7 +79,10 @@ interface UseWardDataOptions {
 }
 
 export const useWardData = (options: UseWardDataOptions = {}): UseWardDataResult => {
-  const { useGoogleApi = true, googleBatchSize = 20 } = options;
+  // Only try Google if the dev-server proxy is enabled (i.e., server has an API key configured).
+  const proxyEnabled = String(import.meta.env.VITE_GOOGLE_AIR_QUALITY_PROXY_ENABLED) === 'true';
+
+  const { useGoogleApi = proxyEnabled, googleBatchSize = 20 } = options;
   
   const [wards, setWards] = useState<WardAQIData[]>([]);
   const [loading, setLoading] = useState(true);

@@ -13,6 +13,7 @@ const WardMap = React.lazy(() => import('./components/WardMap'));
 const ImpactTracker = React.lazy(() => import('./components/ImpactTracker'));
 const ActiveAlerts = React.lazy(() => import('./components/ActiveAlerts'));
 const ScenarioSimulator = React.lazy(() => import('./components/ScenarioSimulator'));
+const LandingPage = React.lazy(() => import('./components/LandingPage'));
 
 const LoadingFallback = () => (
   <div className="flex flex-col items-center justify-center h-[60vh] text-gray-400 animate-in fade-in duration-300">
@@ -23,6 +24,15 @@ const LoadingFallback = () => (
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<ViewState>(ViewState.DASHBOARD);
+  const [showLanding, setShowLanding] = useState(true);
+
+  if (showLanding) {
+    return (
+      <React.Suspense fallback={<LoadingFallback />}>
+        <LandingPage onEnterDashboard={() => setShowLanding(false)} />
+      </React.Suspense>
+    );
+  }
 
   const renderContent = () => {
     switch (currentView) {
